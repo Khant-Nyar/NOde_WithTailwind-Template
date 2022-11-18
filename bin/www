@@ -1,0 +1,130 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+const app = require('../app');
+const debug = require('debug')('standard:server');
+const http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+const port = normalizePort(process.env.PORT || '3000');
+const host = process.env.HOST || 'localhost';
+app.set('port', port);
+app.set('host', host);
+/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port, host, () => {
+    console.log(`Server is running on http://${host}:${port} ...`)
+    // console.log(JSON.stringify(server.address()));
+    // console.log(server.address().address);
+    // console.log(server.address().port);
+});
+server.on('error', onError);
+server.on('You Server is Starting on ', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}
+
+
+// var http = require('http');
+// //Complete url to get the random numbers :
+// 'https://www.w3resource.com/php/function-reference/srand-example.php'
+// var options = {
+//   host: 'www.w3resource.com',
+//   path: '/php/function-reference/srand-example.php'
+// };
+// callback = function(response) {
+//   var str = '';
+//   // chunk of data has been recieved and  append it to `str`
+//   response.on('data', function (chunk) {
+//     str += chunk;
+//   });
+//   //the whole response has been recieved, now print it out here
+//   response.on('end', function () {
+//     console.log(str);
+//   });
+// }
+// http.request(options, callback).end();
+
+// Output:
+
+// E:\nodejs>node test.js
+// 1308772920
+// E:\nodejs>node test.js
+// 1458134273
+// E:\nodejs>node test.js
+// 1153445869
+// E:\nodejs>node test.js
+// 1628318176
+// E:\nodejs>node test.js
+// 1323706499
