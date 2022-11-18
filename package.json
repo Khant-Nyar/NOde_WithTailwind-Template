@@ -1,12 +1,14 @@
 {
   "name": "standard",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "prestart": "npm install && npx tailwindcss -i input.css -o ./public/css/style.css --minify",
+    "build": "npx tailwindcss -i input.css -o ./public/css/style.css --watch",
     "dev": "nodemon ./bin/www",
-    "watchcss": "npx tailwindcss -i input.css -o ./public/css/style.css",
-    "start:dev": "npm -p -r run watchcss && -p -r npm run dev"
+    "predev": "npm install && npx tailwindcss -i input.css -o ./public/css/style.css --minify",
+    "postdev": "echo \"everythin is ok\""
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
